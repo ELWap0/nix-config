@@ -1,3 +1,9 @@
 [submodule "nvim"]
 	path = nvim
 	url = https://github.com/ELWap0/nvim.git
+[submodule "hyprland-config"]
+	path = hyprland-config
+	url = https://github.com/ELWap0/hyprland-config.git
+[submodule "ghosty-config"]
+	path = ghosty-config
+	url = https://github.com/ELWap0/ghosty-config.git

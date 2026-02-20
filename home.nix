@@ -1,9 +1,16 @@
 { config, pkgs, nvim-config, hypr-config, ghostty-config, ...}:
 {
  xdg.enable = true;
- xdg.configFile."nvim".source = "${nvim-config}";
- xdg.configFile."hypr".source = "${hypr-config}";
- xdg.configFile."ghostty".source = "${ghostty-config}";
+ xdg.configFile."nvim".source = "./nvim";
+ xdg.configFile."hypr" = {
+ 	source = "./hyperland-config";
+	target = "hypr"
+ }
+ 
+ xdg.configFile."ghostty" = {
+ 	source = "./ghosty-config";
+	target = "ghostty";
+ }
  home = 
  {
    username = "elWapo";
