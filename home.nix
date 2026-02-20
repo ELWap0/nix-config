@@ -3,12 +3,12 @@
  xdg.enable = true;
  xdg.configFile."nvim".source = "./nvim";
  xdg.configFile."hypr" = {
- 	source = "./hyperland-config";
+ 	source = ./hyperland-config;
 	target = "hypr";
  };
  
  xdg.configFile."ghostty" = {
- 	source = "./ghosty-config";
+ 	source = ./ghosty-config;
 	target = "ghostty";
  };
  home = 
