@@ -9,20 +9,8 @@
    url = "github:nix-community/home-manager";
    inputs.nixpkgs.follows = "nixpkgs";
   };
-  nvim-config = {
-   url = "github:ELWap0/nvim?ref=master";
-   flake = false;
-  };
-  hypr-config = {
-   url = "github:ELWap0/hyprland-config?ref=master";
-   flake = false;
-  };
-  ghostty-config = {
-   url = "github:ELWap0/ghosty-config?ref=nix-laptop";
-   flake = false;
-  };
  };
- outputs = {self, nixpkgs, nixpkgsStable, home-manager, nvim-config, hypr-config,ghostty-config,...}@inputs : 
+ outputs = {self, nixpkgs, nixpkgsStable, home-manager, ...}@inputs : 
  let 
    lib = nixpkgs.lib;
    system = "x86_64-linux";
@@ -40,10 +28,10 @@
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.users.elWapo = ./home.nix;
-      home-manager.extraSpecialArgs = 
-      {
-        inherit nvim-config hypr-config ghostty-config;
-      };
+      #home-manager.extraSpecialArgs = 
+      #{
+        #inherit nvim-config hypr-config ghostty-config;
+      #};
     }
    ];
    };
