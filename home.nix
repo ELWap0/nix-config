@@ -4,13 +4,13 @@
  xdg.configFile."nvim".source = "./nvim";
  xdg.configFile."hypr" = {
  	source = "./hyperland-config";
-	target = "hypr"
- }
+	target = "hypr";
+ };
  
  xdg.configFile."ghostty" = {
  	source = "./ghosty-config";
 	target = "ghostty";
- }
+ };
  home = 
  {
    username = "elWapo";
