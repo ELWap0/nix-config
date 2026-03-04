@@ -15,18 +15,25 @@
    lib = nixpkgs.lib;
    system = "x86_64-linux";
    pkgs = import nixpkgs { inherit system; };
+   stablePkgs = import nixpkgsStable { 
+     inherit system;
+     config.allowUnfree = true;
+   };
  in
  {
   nixosConfigurations = 
   {
    laptop-buddy = lib.nixosSystem{
+   specialArgs = {
+     inherit stablePkgs; 
+   };
    modules = 
    [
     ./configuration.nix
     home-manager.nixosModules.home-manager
     {
       home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
+     home-manager.useUserPackages = true;
       home-manager.users.elWapo = ./home.nix;
       #home-manager.extraSpecialArgs = 
       #{

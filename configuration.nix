@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, stablePkgs, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -20,7 +20,10 @@
   services.pipewire = {
     enable = true;
     pulse.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
   };
+
   services.udev.packages = [ pkgs.openocd ];
   users.users.elWapo = {
     isNormalUser = true;
@@ -32,7 +35,7 @@
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = (with pkgs; [
     neovim
     wget
     git 
@@ -43,12 +46,14 @@
     gcc
     nodejs_24
     llvmPackages_20.clang-tools
-    kdePackages.okular
     gnumake
     python315
     uv
     inetutils 
-  ];
+  ]) ++ (with stablePkgs; [
+    kdePackages.okular
+    gnome.gvfs
+  ]);
   fonts.packages = with pkgs; [
    fira-code
    fira-code-symbols
@@ -57,18 +62,24 @@
 
 
   specialisation  = {
+
     hardware.configuration = {
+      programs.dconf.enable = true;
       system.nixos.tags = [ "hardware" ];
       services.xserver.enable = true;
-      services.xserver.desktopManager.gnome.enable = true;
+      services.desktopManager.gnome.enable = true;
 
       services.xserver.xkb.layout = "us";
       services.xserver.videoDrivers = [ "modesetting" ];
       environment.systemPackages = with pkgs; [
         kicad
       ];
-
+      environment.sessionVariables.XDG_DATA_DIRS = [
+        "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
+        "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
+      ];
     };
+
     software.configuration = {
       system.nixos.tags = [ "software" ];
       programs.hyprland.enable = true;
